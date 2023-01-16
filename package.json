@@ -1,0 +1,38 @@
+{
+  "name": "typedoc-to-mdx",
+  "version": "1.0.0",
+  "description": "TypeDoc to mdx document generator",
+  "main": "index.js",
+  "scripts": {
+    "generate": "ts-node -O '{\"module\":\"commonjs\"}' src --config ./config.json",
+    "build": "node ./build.js",
+    "publish:demo": "npm run build --prefix docs && gh-pages -d docs/build/ --add --remote upstream"
+  },
+  "bin": {
+    "typedoc-to-mdx": "./bin/typedoc-to-mdx.js"
+  },
+  "author": {
+    "name": "NAVER Corp."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/naver/typedoc-to-mdx"
+  },
+  "license": "MIT",
+  "homepage": "https://naver.github.io/typedoc-to-mdx/",
+  "bugs": {
+    "url": "https://github.com/naver/typedoc-to-mdx/issues"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "esbuild": "^0.17.0",
+    "ts-node": "^10.9.1"
+  },
+  "dependencies": {
+    "commander": "^9.4.1",
+    "escape-html": "^1.0.3",
+    "fs-extra": "^11.1.0",
+    "pretty": "^2.0.0",
+    "typedoc": "^0.23.21"
+  }
+}
