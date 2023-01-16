@@ -15,6 +15,34 @@ APIs are likely to change without consideration for backwards compatibility.
 - "--typedoc <path>", "path to the typedoc.json"
 - "--tsconfig <path>", "path to the tsconfig.json"
 
+## Styles
+`typedoc-to-mdx` provides styles file dedicated to [docusaurus v2](https://docusaurus.io/).
+Here's file paths that `typedoc-to-mdx` provides.
+
+```
+- typedoc-to-mdx/sass/theme.sass
+- typedoc-to-mdx/css/theme.css
+- typedoc-to-mdx/css/theme.min.css
+```
+
+You should include one of those files within `presets/"@docusaurus/preset-classic"/theme/customCss` section of your `docusaurus.config.js` file.
+
+```js
+presets: [
+  [
+    "@docusaurus/preset-classic",
+    /** @type {import('@docusaurus/preset-classic').Options} */
+    ({
+      theme: {
+        customCss: [
+          require.resolve("typedoc-to-mdx/css/theme.min.css")
+        ]
+      }
+    })
+  ]
+]
+```
+
 ## Config example
 ```json
 {

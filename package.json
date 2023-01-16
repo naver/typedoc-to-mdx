@@ -5,7 +5,13 @@
   "main": "index.js",
   "scripts": {
     "generate": "ts-node -O '{\"module\":\"commonjs\"}' src --config ./config.json",
-    "build": "node ./build.js",
+    "build": "run-s build:bin build:css",
+    "build:bin": "node ./build.js",
+    "build:css": "run-s build:css-clear build:sass build:css-prefix build:css-min",
+    "build:css-clear": "rm -rf ./css",
+    "build:sass": "node-sass sass/ -o css/ -x --output-style expanded",
+    "build:css-prefix": "postcss css/*.css --replace --use autoprefixer --no-map",
+    "build:css-min": "postcss css/*.css --ext .min.css --use postcss-clean -d css/ --no-map",
     "publish:demo": "npm run build --prefix docs && gh-pages -d docs/build/ --add --remote upstream"
   },
   "bin": {
@@ -25,7 +31,12 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.13",
+    "autoprefixer": "^10.4.13",
     "esbuild": "^0.17.0",
+    "node-sass": "^8.0.0",
+    "npm-run-all": "^4.1.5",
+    "postcss-clean": "^1.2.2",
+    "postcss-cli": "^10.1.0",
     "ts-node": "^10.9.1"
   },
   "dependencies": {
