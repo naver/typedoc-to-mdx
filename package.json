@@ -1,6 +1,6 @@
 {
   "name": "typedoc-to-mdx",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "TypeDoc to mdx document generator",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,7 @@
     "build:sass": "node-sass sass/ -o css/ -x --output-style expanded",
     "build:css-prefix": "postcss css/*.css --replace --use autoprefixer --no-map",
     "build:css-min": "postcss css/*.css --ext .min.css --use postcss-clean -d css/ --no-map",
-    "publish:demo": "npm run build --prefix docs && gh-pages -d docs/build/ --add --remote upstream"
+    "publish:demo": "npm run build --prefix demo && gh-pages -d demo/build/ --remote upstream"
   },
   "bin": {
     "typedoc-to-mdx": "./bin/typedoc-to-mdx.js"
@@ -33,6 +33,7 @@
     "@types/fs-extra": "^9.0.13",
     "autoprefixer": "^10.4.13",
     "esbuild": "^0.17.0",
+    "gh-pages": "^4.0.0",
     "node-sass": "^8.0.0",
     "npm-run-all": "^4.1.5",
     "postcss-clean": "^1.2.2",
