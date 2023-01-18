@@ -5,7 +5,7 @@ TypeDoc to mdx API document generator.
 This module is designed for use with [docusaurus v2](https://docusaurus.io/)
 
 >⚠️ This library is in active development.
-APIs are likely to change without consideration for backwards compatibility.
+APIs are likely to change without considerations of backward compatibility.
 
 ## Options
 - "-c, --config <path>", "path to the config file"

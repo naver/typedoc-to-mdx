@@ -1,10 +1,8 @@
 {
+  "outDir": "./demo/docs/api",
   "locales": ["ko"],
-  "outDir": "../demo/docs/api",
-  "localesDir": "../demo/i18n/{locale}/docusaurus-plugin-content-docs/current/api",
-  "sidebar": "../demo",
-  "prefix": "api/",
+  "localesDir": "./demo/i18n/{locale}/docusaurus-plugin-content-docs/current/api",
   "typedoc": "./typedoc.json",
-  "tsconfig": "./tsconfig.json",
-  "baseUrl": "https://github.com/naver/egjs-view360/"
+  "tsconfig": "./tsconfig.demo.json",
+  "baseUrl": "https://github.com/naver/typedoc-to-mdx/"
 }

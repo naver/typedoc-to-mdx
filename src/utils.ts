@@ -110,11 +110,11 @@ export const commentDisplayText = (content: TypeDoc.CommentDisplayPart[], ctx: R
   return content.map((desc) => {
     if (desc.kind === "inline-tag") {
       if (desc.target) {
-        const targetName = typeof desc.target === "string"
-          ? desc.target
-          : name(desc.target);
-
-        return bindLinkByName(targetName, ctx, desc.text);
+        if (typeof desc.target === "string") {
+          return `[${desc.text}](${desc.target})`;
+        } else {
+          return bindLink(desc.target, ctx, desc.text);
+        }
       } else {
         const separator = desc.text.includes("|") ? "|" : " ";
         const link = desc.text.split(separator);
@@ -177,7 +177,7 @@ export const getReflectionBadges = (member: TypeDoc.Reflection): string[] => {
   }
 
   if (member.flags.isAbstract) {
-    badges.push(badge.secondary("abstract"));
+    badges.push(badge.success("abstract"));
   }
 
   if (member.flags.isStatic) {
@@ -186,11 +186,11 @@ export const getReflectionBadges = (member: TypeDoc.Reflection): string[] => {
 
   const hasOnlyGetter = member.hasGetterOrSetter() && !(member as TypeDoc.DeclarationReflection).setSignature;
   if (member.flags.isReadonly || hasOnlyGetter) {
-    badges.push(badge.success("readonly"));
+    badges.push(badge.secondary("readonly"));
   }
 
   if ((member as TypeDoc.DeclarationReflection).inheritedFrom) {
-    badges.push(badge.primary("inherited"));
+    badges.push(badge.warning("inherited"));
   }
 
   return badges;

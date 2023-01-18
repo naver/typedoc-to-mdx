@@ -1,0 +1,111 @@
+@font-face
+{
+  font-family: 'Staatliches';
+  font-weight: normal;
+  font-style: normal;
+  src: url('/font/Staatliches/Staatliches-Regular.ttf');
+}
+
+.mainHero {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.heroViewer {
+  aspect-ratio: 2;
+  width: 100%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 20px;
+}
+
+.max400 {
+  width: 100%;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.packageName {
+  font-family: 'Staatliches', monospace;
+  font-size: 64px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.packageNameSub {
+  font-size: 18px;
+  text-align: center;
+  font-weight: bold;
+  color: hsl(0, 0%, 55%);
+  margin-bottom: 0.5rem;
+}
+
+.badges {
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+  margin-top: 0.5rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.badges *:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
+.btnIcon {
+  margin-right: 0.5rem;
+}
+
+.hr {
+  width: 100%;
+  height: 48px;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.showcaseHeader {
+  font-family: 'Staatliches', monospace;
+  font-size: 32px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+.showcases {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.showcase {
+  font-family: 'Staatliches', monospace;
+  font-size: 24px;
+}
+
+@media screen and (max-width: 768px) {
+  .showcases {
+    display: flex;
+    flex-direction: column;
+  }
+}

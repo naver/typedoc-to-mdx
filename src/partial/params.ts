@@ -24,7 +24,7 @@ const renderParams = (parameters: ParameterReflection[], ctx: RenderContext) => 
       `<div className="${classPrefix}-param-header">`,
       `<span className="${classPrefix}-name">${param.name}</span>`,
       `<div className="${classPrefix}-type">`,
-      escape(renderType(param.type, ctx, { simplify: true })),
+      escape(renderType(param.type, ctx, { oneLine: true })),
       "</div>"
     ];
 
@@ -35,6 +35,12 @@ const renderParams = (parameters: ParameterReflection[], ctx: RenderContext) => 
     }
 
     items.push("</div>");
+
+    if (param.hasComment()) {
+      items.push(`<div className="${classPrefix}-desc">`);
+      items.push(commentInlineText(param.comment!, ctx));
+      items.push("</div>");
+    }
 
     if (param.type instanceof ReflectionType) {
       const children = param.type.declaration.children;
@@ -63,12 +69,6 @@ const renderParams = (parameters: ParameterReflection[], ctx: RenderContext) => 
           items.push("</div>");
         });
       }
-    }
-
-    if (param.hasComment()) {
-      items.push(`<div className="${classPrefix}-desc">`);
-      items.push(commentInlineText(param.comment!, ctx));
-      items.push("</div>");
     }
 
     items.push("</div>");

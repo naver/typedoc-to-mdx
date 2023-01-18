@@ -17,7 +17,6 @@ webpack.*.js
 #docs
 doc
 demo
-jsdoc.json
 README.md
 
 #editor settings

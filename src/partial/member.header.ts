@@ -15,7 +15,7 @@ export const memberHeader = (
     `<summary className="${ctx.classPrefix}-member">`,
     `<span className="${ctx.classPrefix}-name">${item.name}</span>`,
     `<span className="${ctx.classPrefix}-type">`,
-    escape(renderType(item.type, ctx).replace(/\n/g, " ").replace(/\s{2,}/, " ")),
+    escape(renderType(item.type, ctx, { oneLine: true }).replace(/\n/g, " ").replace(/\s{2,}/, " ")),
     "</span>",
   ];
 

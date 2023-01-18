@@ -19,6 +19,7 @@ import { memberSignatureTitle } from "./member.signature.title";
 export interface TypeRenderContext extends RenderContext {
   includeLink: boolean;
   simplify: boolean;
+  oneLine: boolean;
 }
 
 let indentationDepth = 0;
@@ -240,16 +241,24 @@ const typeRenderers: {
     }
 
     if (members.length) {
-      const membersWithSeparators = members.flatMap(m => [
-        includeIndentation(),
-        m,
-        ";\n"
-      ]);
+      const membersWithSeparators = members.flatMap(m => {
+        return ctx.oneLine
+        ? [m, "; "]
+        : [
+          includeIndentation(),
+          m,
+          ";\n"
+        ]
+      });
       membersWithSeparators.pop();
 
       indentationDepth--;
 
-      return `{\n${membersWithSeparators.join("")}\n${includeIndentation()}}`;
+      if (ctx.oneLine) {
+        return `{ ${membersWithSeparators.join("")} }`
+      } else {
+        return `{\n${membersWithSeparators.join("")}\n${includeIndentation()}}`;
+      }
     }
 
     indentationDepth--;
@@ -306,12 +315,14 @@ export const render = (type: Type | undefined, ctx: TypeRenderContext, where: Ty
 export const renderType = (type: Type | undefined, ctx: RenderContext, option: Partial<Omit<TypeRenderContext, keyof RenderContext>> = {}): string => {
   const {
     includeLink = true,
-    simplify = false
+    simplify = false,
+    oneLine = false
   } = option;
 
   return render(type, {
     ...ctx,
     includeLink,
-    simplify
+    simplify,
+    oneLine
   }, TypeContext.none);
 };

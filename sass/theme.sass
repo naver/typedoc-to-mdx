@@ -88,6 +88,7 @@ $monospace: "ui-monospace", "SFMono-Regular", "SF Mono", Menlo, Consolas, "Liber
   > div > div
     margin: 0
     border: 0
+    padding: 0
 
 .doc-param
   margin-left: 1.25rem
@@ -123,6 +124,8 @@ $monospace: "ui-monospace", "SFMono-Regular", "SF Mono", Menlo, Consolas, "Liber
     margin-bottom: 0
   &:not(:last-child)
     margin-bottom: 1.25rem
+  &:has(~ .doc-sub-param)
+    margin-bottom: 0
 
 .doc-default
   display: inline-block
@@ -140,14 +143,12 @@ $monospace: "ui-monospace", "SFMono-Regular", "SF Mono", Menlo, Consolas, "Liber
 
 .doc-desc
   // Param Description
-  padding-top: 0.5rem
   font-weight: 400
   font-size: 1rem
 
 .doc-sub-param
   .doc-desc
-    display: inline-block
-    margin-left: 0.5rem
+    display: block
 
 .doc-header-hidden
   visibility: hidden

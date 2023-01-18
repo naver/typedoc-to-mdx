@@ -11,7 +11,8 @@ export function declaration(signature: SignatureReflection, ctx: RenderContext) 
   const desc = memberSignatureTitle(signature, {
     ...ctx,
     includeLink: false,
-    simplify: true
+    simplify: false,
+    oneLine: true
   });
 
   return block(desc, "ts");
