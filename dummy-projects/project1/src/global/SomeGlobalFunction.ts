@@ -13,6 +13,7 @@ function SomeGlobalFunction(a: number = 10, b = { foo: 123, bar: 456 }) {
 /**
  * some global function
  * @ko some Global function
+ * @docid sgf
  * @param a Param A {@ko 패러미터 A}
  * @param b Param B {@ko 패러미터 B}
  * @param b.foo Param B.foo {@ko 패러미터 B.foo}

@@ -119,9 +119,7 @@ class MDXGenerator {
     paths.push(SIDEBAR_CATEGORY_NAME[groupTitle] ?? groupTitle);
 
     const dirPath = path.join(...paths);
-    const filePath = nameIndex > 0
-      ? path.resolve(dirPath, `${name(item)}-${nameIndex}.mdx`)
-      : path.resolve(dirPath, `${name(item)}.mdx`);
+    const filePath = path.resolve(dirPath, this._getDocumentFileName(item, nameIndex));
 
     // Write main document
     fs.ensureDirSync(dirPath);
@@ -400,6 +398,20 @@ class MDXGenerator {
 
       return weightA - weightB;
     });
+  }
+
+  private _getDocumentFileName(item: TypeDoc.DeclarationReflection, nameIndex: number) {
+    const comment = getComment(item);
+
+    if (comment && comment.getTag("@docid")) {
+      const id = comment.getTag("@docid");
+
+      return `${id.content[0].text}.mdx`;
+    } else if (nameIndex > 0) {
+      return `${name(item)}-${nameIndex}.mdx`;
+    } else {
+      return `${name(item)}.mdx`;
+    }
   }
 }
 

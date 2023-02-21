@@ -90,3 +90,45 @@ class B {
     }
 }
 ```
+
+### @docid
+Change the file name of the document.
+As Docusaurus doesn't allow case-sensitive names for documents, this can be used to create different permalink of the document.
+
+For example, if there're two global functions with similar names like this:
+
+```js
+/**
+ * Some global function
+ */
+function SomeGlobalFunction(a: number = 10, b = { foo: 123, bar: 456 }) {
+    return `I'm global, ${a} ${b}`;
+}
+
+/**
+ * some global function
+ */
+function someGlobalFunction(a: number = 10, b = { foo: 123, bar: 456 }) {
+    return `I'm global, ${a} ${b}`;
+}
+```
+
+They will be normally saved as:
+- Function/SomeGlobalFunction.mdx
+- Function/someGlobalFunction-1.mdx
+
+But, the suffix we put (`-1`) is not permanent. It's just used for distinguish between documents.
+
+Instead, you can use `@docid` for creating different file name for the document.
+
+```js
+/**
+ * some global function
+ * @docid sgf
+ */
+function someGlobalFunction(a: number = 10, b = { foo: 123, bar: 456 }) {
+    return `I'm global, ${a} ${b}`;
+}
+```
+
+The document of the above function will be saved as `Function/sgf.mdx`.
