@@ -97,7 +97,7 @@ As Docusaurus doesn't allow case-sensitive names for documents, this can be used
 
 For example, if there're two global functions with similar names like this:
 
-```js
+```ts
 /**
  * Some global function
  */
@@ -121,7 +121,7 @@ But, the suffix we put (`-1`) is not permanent. It's just used for distinguish b
 
 Instead, you can use `@docid` for creating different file name for the document.
 
-```js
+```ts
 /**
  * some global function
  * @docid sgf
