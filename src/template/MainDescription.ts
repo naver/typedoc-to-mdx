@@ -9,13 +9,24 @@ import { commentText } from "../utils";
 
 class MainDescription implements DocumentItem {
   public render(item: TypeDoc.DeclarationReflection, ctx: RenderContext) {
-    if (item.hasComment()) {
-      const text = commentText(item.comment!, ctx);
+    const comment = this._getComment(item);
 
-      return `<div className="${ctx.classPrefix}-subtitle">\n\n${text}\n\n</div>`;
-    } else {
-      return "";
-    }
+    if (!comment) return "";
+
+    const text = commentText(comment, ctx);
+
+    return `<div className="${ctx.classPrefix}-subtitle">\n\n${text}\n\n</div>`;
+  }
+
+  private _getComment(item: TypeDoc.DeclarationReflection) {
+    if (item.hasComment()) return item.comment!;
+
+    const signatures = item.getAllSignatures();
+    const signatureWithComment = signatures.find(signature => signature.hasComment());
+
+    if (!signatureWithComment) return null;
+
+    return signatureWithComment.comment!;
   }
 }
 
