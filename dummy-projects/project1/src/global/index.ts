@@ -1,5 +1,1 @@
-import SomeGlobalFunction from "./SomeGlobalFunction";
-
-export {
-    SomeGlobalFunction
-}
+export * from "./SomeGlobalFunction";
