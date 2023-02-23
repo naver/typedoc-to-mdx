@@ -70,7 +70,7 @@ const config = {
           },
           {
             type: "doc",
-            docId: "api/Class/DummyClass",
+            docId: "api/project1/Class/DummyClass",
             label: "Demo",
             position: "left"
           },
@@ -79,13 +79,13 @@ const config = {
             position: "right"
           },
           {
-            href: "https://www.npmjs.com/package/@egjs/view360",
+            href: "https://www.npmjs.com/package/typedoc-to-mdx",
             className: "header-npm-link",
             "aria-label": "NPM Package",
             position: "right"
           },
           {
-            href: "https://github.com/naver/egjs-view360",
+            href: "https://github.com/naver/typedoc-to-mdx",
             className: "header-github-link",
             "aria-label": "GitHub Repository",
             position: "right"

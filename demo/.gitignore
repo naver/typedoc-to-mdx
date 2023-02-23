@@ -20,3 +20,6 @@ yarn-debug.log*
 yarn-error.log*
 
 !css/
+
+docs/api/
+i18n/ko/docusaurus-plugin-content-docs/current/api/

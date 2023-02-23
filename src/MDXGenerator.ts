@@ -4,6 +4,7 @@
  */
 import fs from "fs-extra";
 import path from "path";
+import chalk from "chalk";
 import * as TypeDoc from "typedoc";
 import { ProgramOptions } from "./CLICommand";
 import { SIDEBAR_CATEGORY_NAME } from "./const";
@@ -22,13 +23,14 @@ export interface DocumentItem {
 export type DocumentItems = Record<string, DocumentItem>;
 
 class MDXGenerator {
+  private _projectName: string;
   private _items: DocumentItems;
   private _template: DocumentRenderer;
   private _outDir: string;
   private _locales: string[];
   private _localesDir?: string;
 
-  public constructor(project: TypeDoc.ProjectReflection, {
+  public constructor(project: TypeDoc.ProjectReflection | TypeDoc.DeclarationReflection, {
     outDir,
     locales = [],
     localesDir
@@ -37,6 +39,7 @@ class MDXGenerator {
       throw new Error("error: required option '-o, --outDir <path>', or '-c, --config <path>' not specified");
     }
 
+    this._projectName = project.name;
     this._items = this._createDocumentItemsRef(project);
     this._template = new DocumentRenderer();
     this._locales = locales;
@@ -53,6 +56,7 @@ class MDXGenerator {
   }
 
   public async writeDocuments() {
+    const writeStart = performance.now();
     const items = Object.values(this._items);
 
     items.forEach(item => this._sortItemChildren(item));
@@ -88,7 +92,11 @@ class MDXGenerator {
       });
     }
 
-    console.log("Done");
+    const writeEnd = performance.now();
+    console.log(`${chalk.green("typedoc-to-mdx")}: generated ${chalk.blue(items.length)} documents`);
+    console.log(`  - Project: ${chalk.bold(this._projectName)}`)
+    console.log(`  - Location: ${chalk.italic(this._outDir)}`);
+    console.log(`  - Run time: ${chalk.yellow((writeEnd - writeStart).toFixed(2))}ms`);
   }
 
   public async writeDocument({
@@ -126,7 +134,7 @@ class MDXGenerator {
     }));
   }
 
-  private _createDocumentItemsRef(project: TypeDoc.ProjectReflection) {
+  private _createDocumentItemsRef(project: TypeDoc.ProjectReflection | TypeDoc.DeclarationReflection) {
     const groups = project.groups ?? [];
     const items: DocumentItems = {};
 

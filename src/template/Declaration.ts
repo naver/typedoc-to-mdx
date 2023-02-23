@@ -37,7 +37,7 @@ class Declaration implements DocumentItem {
     }
 
     if (item.kindOf(TypeDoc.ReflectionKind.TypeAlias)) {
-      header.push(`= ${renderType(item.type, ctx, { includeLink: false })}`);
+      header.push(` = ${renderType(item.type, ctx, { includeLink: false })}`);
     }
 
     return block(header.filter(val => !!val).join(""), "ts");
@@ -53,7 +53,7 @@ class Declaration implements DocumentItem {
 
   private _itemName(item: TypeDoc.DeclarationReflection, ctx: RenderContext) {
     if (hasTypeParameters(item)) {
-      return ` ${name(item)}<${typeParameters(item.typeParameters, ctx)}>`;
+      return ` ${name(item)}<${typeParameters(item.typeParameters, ctx, false)}>`;
     } else {
       return ` ${name(item)}`;
     }

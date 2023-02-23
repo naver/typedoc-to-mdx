@@ -4,7 +4,8 @@
   "description": "TypeDoc to mdx document generator",
   "main": "index.js",
   "scripts": {
-    "generate": "ts-node -O '{\"module\":\"commonjs\"}' src --config ./config.json",
+    "generate": "ts-node -O '{\"module\":\"commonjs\"}' src --config ./config-multiple.json",
+    "generate:single": "ts-node -O '{\"module\":\"commonjs\"}' src --config ./config-single.json",
     "build": "run-s build:bin build:css",
     "build:bin": "node ./build.js",
     "build:css": "run-s build:css-clear build:sass build:css-prefix build:css-min",
@@ -41,6 +42,7 @@
     "ts-node": "^10.9.1"
   },
   "dependencies": {
+    "chalk": "^4.1.2",
     "commander": "^9.4.1",
     "escape-html": "^1.0.3",
     "fs-extra": "^11.1.0",
