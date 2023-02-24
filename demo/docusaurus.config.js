@@ -70,7 +70,7 @@ const config = {
           },
           {
             type: "doc",
-            docId: "api/project1/Class/DummyClass",
+            docId: "api/proj_1/Class/DummyClass",
             label: "Demo",
             position: "left"
           },

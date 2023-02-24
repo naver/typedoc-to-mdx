@@ -1,8 +1,5 @@
 ---
-title: Config
-id: config
-slug: /config
-sidebar_position: 3
+sidebar_position: 1
 ---
 
 Configs can be provided either by command line parameters or config file with JSON format.

@@ -1,3 +1,7 @@
+/**
+ * @module proj_1
+ */
+
 export * from "./category";
 export * from "./class";
 export * from "./const/consts";
