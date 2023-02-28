@@ -1,6 +1,0 @@
-{
-  "entryPoints": ["./dummy-project/index.ts"],
-  "sourceLinkTemplate": "https://github.com/naver/typedoc-to-mdx/blob/{gitRevision}/{path}#L{line}",
-  "excludePrivate": true,
-  "excludeProtected": true
-}

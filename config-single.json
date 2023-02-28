@@ -1,0 +1,8 @@
+{
+  "outDir": "./demo/docs/api",
+  "locales": ["ko"],
+  "localesDir": "./demo/i18n/{locale}/docusaurus-plugin-content-docs/current/api",
+  "typedoc": "./typedoc-single.json",
+  "tsconfig": "./tsconfig.demo.json",
+  "baseUrl": "https://github.com/naver/typedoc-to-mdx/"
+}
