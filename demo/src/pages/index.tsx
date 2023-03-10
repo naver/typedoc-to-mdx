@@ -44,7 +44,7 @@ export default function Home() {
           <Link to="/docs/installation" className={clsx(styles.button, "button button--outline button--secondary")}>
             <IconJetpack className={styles.btnIcon} /> Quick Start
           </Link>
-          <Link to="/docs/api/Class/DummyClass" className={clsx(styles.button, "button button--outline button--secondary")}>
+          <Link to="/docs/api/proj_1/Class/DummyClass" className={clsx(styles.button, "button button--outline button--secondary")}>
             <IconPresentation className={styles.btnIcon} /> Demo
           </Link>
           <Link to="https://github.com/naver/typedoc-to-mdx" className={clsx(styles.button, "button button--outline button--secondary")}>

@@ -1,8 +1,8 @@
 {
   "name": "typedoc-to-mdx",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "TypeDoc to mdx document generator",
-  "main": "index.js",
+  "main": "./bin/typedoc-to-mdx.js",
   "scripts": {
     "generate": "ts-node -O '{\"module\":\"commonjs\"}' src --config ./config-multiple.json",
     "generate:single": "ts-node -O '{\"module\":\"commonjs\"}' src --config ./config-single.json",
