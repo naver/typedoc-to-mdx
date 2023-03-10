@@ -14,7 +14,8 @@ const TAGS_DUPLICATE = [
   "copy",
   "default",
   "eventName",
-  "eventOf"
+  "eventOf",
+  "docid"
 ];
 
 export function comment(props: Reflection, ctx: RenderContext) {

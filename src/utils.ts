@@ -138,18 +138,13 @@ export const getComment = (reflection?: TypeDoc.Reflection) => {
     return reflection.comment;
   }
 
-  if (reflection.kind === TypeDoc.ReflectionKind.Accessor) {
-    const prop = reflection as TypeDoc.DeclarationReflection;
+  if (reflection instanceof TypeDoc.DeclarationReflection) {
+    const signatures = reflection.getAllSignatures();
+    const signatureWithComment = signatures.find(signature => signature.hasComment());
 
-    if (prop.getSignature && prop.getSignature.hasComment()) return prop.getSignature.comment!;
-    if (prop.setSignature && prop.setSignature.hasComment()) return prop.setSignature.comment!;
-  }
+    if (!signatureWithComment) return null;
 
-  if (reflection.kind === TypeDoc.ReflectionKind.Method) {
-    const signatures = (reflection as TypeDoc.DeclarationReflection).signatures ?? [];
-    const signature = signatures[signatures.length - 1];
-
-    if (signature && signature.hasComment()) return signature.comment;
+    return signatureWithComment.comment!;
   }
 
   return null;

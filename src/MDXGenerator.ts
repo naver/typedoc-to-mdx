@@ -19,6 +19,7 @@ export interface DocumentItem {
   properties: TypeDoc.DeclarationReflection[];
   methods: TypeDoc.DeclarationReflection[];
   events: TypeDoc.Reflection[];
+  nameIndex: number;
 }
 export type DocumentItems = Record<string, DocumentItem>;
 
@@ -50,6 +51,7 @@ class MDXGenerator {
     this._bindEventsAsChildren(this._items, itemsArr);
     this._bindInheritedEvents(this._items);
     this._bindCopiedChildren(this._items);
+    this._addCaseSensitiveMeta(this._items);
 
     fs.rmSync(outDir, { recursive: true, force: true });
     fs.ensureDirSync(outDir);
@@ -61,11 +63,9 @@ class MDXGenerator {
 
     items.forEach(item => this._sortItemChildren(item));
 
-    items.forEach(async ({ item, group, categoryName }) => {
+    items.forEach(async item => {
       await this.writeDocument({
-        item,
-        group: group.title,
-        category: categoryName,
+        ...item,
         locale: null,
         rootDir: this._outDir
       });
@@ -80,11 +80,9 @@ class MDXGenerator {
         fs.rmSync(localeOutDir, { recursive: true, force: true });
         fs.ensureDirSync(localeOutDir);
 
-        items.forEach(async ({ item, group, categoryName }) => {
+        items.forEach(async item => {
           await this.writeDocument({
-            item,
-            group: group.title,
-            category: categoryName,
+            ...item,
             locale,
             rootDir: localeOutDir
           });
@@ -102,26 +100,26 @@ class MDXGenerator {
   public async writeDocument({
     item,
     group,
-    category,
+    categoryName,
+    nameIndex,
     locale,
     rootDir
-  }: {
-    item: TypeDoc.DeclarationReflection,
-    group: string;
-    category: string | null;
+  }: DocumentItem & {
     locale: string | null;
     rootDir: string;
   }) {
+    const groupTitle = group.title;
+    const category = categoryName;
     const paths = [rootDir];
 
     if (category) {
       paths.push(category);
     }
 
-    paths.push(SIDEBAR_CATEGORY_NAME[group] ?? group);
+    paths.push(SIDEBAR_CATEGORY_NAME[groupTitle] ?? groupTitle);
 
     const dirPath = path.join(...paths);
-    const filePath = path.resolve(dirPath, `${name(item)}.mdx`);
+    const filePath = path.resolve(dirPath, this._getDocumentFileName(item, nameIndex));
 
     // Write main document
     fs.ensureDirSync(dirPath);
@@ -154,6 +152,7 @@ class MDXGenerator {
                   : `${groupName}/${name(item)}`,
                 categoryName,
                 group,
+                nameIndex: 0,
                 ...this._getSubItems(item)
               };
             });
@@ -166,6 +165,7 @@ class MDXGenerator {
               url: `${groupName}/${name(item)}`,
               categoryName: null,
               group,
+              nameIndex: 0,
               ...this._getSubItems(item)
             };
           });
@@ -313,6 +313,22 @@ class MDXGenerator {
     });
   }
 
+  private _addCaseSensitiveMeta(itemsMap: DocumentItems) {
+    const items = Object.values(itemsMap);
+    const namesCounter: Record<string, number> = {};
+
+    items.forEach(item => {
+      const itemName = name(item.item).toLowerCase();
+
+      if (namesCounter[itemName]) {
+        item.nameIndex = namesCounter[itemName];
+        namesCounter[itemName] += 1;
+      } else {
+        namesCounter[itemName] = 1;
+      }
+    });
+  }
+
   private _addEventOwner(itemsMap: DocumentItems, item: TypeDoc.Reflection) {
     if (!item.comment) return null;
 
@@ -382,6 +398,20 @@ class MDXGenerator {
 
       return weightA - weightB;
     });
+  }
+
+  private _getDocumentFileName(item: TypeDoc.DeclarationReflection, nameIndex: number) {
+    const comment = getComment(item);
+
+    if (comment && comment.getTag("@docid")) {
+      const id = comment.getTag("@docid");
+
+      return `${id.content[0].text}.mdx`;
+    } else if (nameIndex > 0) {
+      return `${name(item)}-${nameIndex}.mdx`;
+    } else {
+      return `${name(item)}.mdx`;
+    }
   }
 }
 

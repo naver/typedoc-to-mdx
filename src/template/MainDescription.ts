@@ -5,17 +5,17 @@
 import * as TypeDoc from "typedoc";
 import DocumentItem from "./DocumentTemplate";
 import { RenderContext } from "../DocumentRenderer";
-import { commentText } from "../utils";
+import { commentText, getComment } from "../utils";
 
 class MainDescription implements DocumentItem {
   public render(item: TypeDoc.DeclarationReflection, ctx: RenderContext) {
-    if (item.hasComment()) {
-      const text = commentText(item.comment!, ctx);
+    const comment = getComment(item);
 
-      return `<div className="${ctx.classPrefix}-subtitle">\n\n${text}\n\n</div>`;
-    } else {
-      return "";
-    }
+    if (!comment) return "";
+
+    const text = commentText(comment, ctx);
+
+    return `<div className="${ctx.classPrefix}-subtitle">\n\n${text}\n\n</div>`;
   }
 }
 
